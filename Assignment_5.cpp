@@ -1,102 +1,67 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Staff {
+class Shape {
 protected:
-    string name, department;
-    int staff_id;
+    float h, b, w;
 public:
-    void accept();
-    void display();
-};
-
-class teaching : public Staff {
-    string subject;
-    int experience;
-public:
-    void accept1();
-    void display1();
-};
-
-void Staff::accept() {
-    cout << "\nEnter Details:\n";
-    cout << "Name: ";
-    cin >> name;
-    cout << "Department: ";
-    cin >> department;
-    cout << "Staff ID: ";
-    cin >> staff_id;
-}
-
-void Staff::display() {
-    cout << "Name: " << name << endl;
-    cout << "Department: " << department << endl;
-    cout << "Staff ID: " << staff_id << endl;
-}
-
-void teaching::accept1() {
-    accept();
-    cout << "Subject: ";
-    cin >> subject;
-    cout << "Experience (years): ";
-    cin >> experience;
-}
-
-void teaching::display1() {
-    cout << "\n";
-    display();
-    cout << "Subject: " << subject << endl;
-    cout << "Experience (years): " << experience << endl;
-}
-
-class support {
-    string request;
-public:
-    void accept2();
-    void display2();
-};
-
-void support::accept2() {
-    int choice;
-    cout << "\nSUPPORT:\n";
-    cout << "Enter 1 for request & 0 for complaint: ";
-    cin >> choice;
-    if (choice == 1) {
-        cout << "Type Request: ";
-        cin >> request;
-    } else if (choice == 0) {
-        cout << "THANK YOU" << endl;
+    void input_data() {
+        cout << "Area of Triangle :" << endl;
+        cout << "Enter height (h): ";
+        cin >> h;
+        cout << "Enter base (b): ";
+        cin >> b;
+        cout << endl;
     }
-}
 
-void support::display2() {
-    cout << "\nRequest: " << request << endl;
-}
+    void input_data1() {
+        cout << "Area of Rectangle :" << endl;
+        cout << "Enter height (h): ";
+        cin >> h;
+        cout << "Enter width (w): ";
+        cin >> w;
+        cout << endl;
+    }
+
+    virtual void display() {
+        cout << "Area from base class" << endl;
+    }
+};
+
+class Triangle : public Shape {
+protected:
+    float Area;
+public:
+    void display() override {
+        Area = 0.5f * h * b;
+        cout << "The area of triangle is: " << Area << endl;
+    }
+};
+
+class Rectangle : public Shape {
+protected:
+    float Area;
+public:
+    void display() override {
+        Area = h * w;
+        cout << "The area of rectangle is: " << Area << endl;
+    }
+};
 
 int main() {
-    int n;
-    cout << "Enter the no. of teachers: ";
-    cin >> n;
+    Shape* ptr;
 
-    teaching obj1[n];
-    for (int i = 0; i < n; i++) {
-        obj1[i].accept1();
-    }
+    Triangle t;
+    ptr = &t;
+    ptr->input_data();
+    ptr->display();
 
-    for (int i = 0; i < n; i++) {
-        cout << "\nDetails:\n";
-        obj1[i].display1();
-    }
+    cout << endl;
 
-    support obj2[n];
-    for (int i = 0; i < n; i++) {
-        obj2[i].accept2();
-    }
-
-    for (int i = 0; i < n; i++) {
-        obj2[i].display2();
-    }
+    Rectangle r;
+    ptr = &r;
+    ptr->input_data1();
+    ptr->display();
 
     return 0;
 }
