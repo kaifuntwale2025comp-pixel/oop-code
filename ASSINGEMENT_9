@@ -1,0 +1,40 @@
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main() {
+    map<int, string> studentMap;
+    int n;
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        int prn;
+        string name;
+
+        cout << "Enter PRN (integer): ";
+        cin >> prn;
+        cin.ignore();
+
+        cout << "Enter student name: ";
+        getline(cin, name);
+
+        studentMap[prn] = name;
+    }
+
+    int searchPRN;
+    cout << "\nEnter the PRN to search: ";
+    cin >> searchPRN;
+
+    auto it = studentMap.find(searchPRN);
+    if (it != studentMap.end()) {
+        cout << "Student Name: " << it->second << endl;
+    } else {
+        cout << "No student found with PRN " << searchPRN << endl;
+    }
+
+    return 0;
+}
